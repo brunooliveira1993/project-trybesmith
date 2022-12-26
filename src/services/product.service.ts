@@ -7,6 +7,9 @@ const getAll = async (): Promise<TProduct[]> => {
 };
 
 const insert = async (product: TProduct) => {
+  if (!product.name) {
+    return { type: 'NO NAME', message: '"name" is required' };
+  }
   const newProduct = await productModel.insert(product);
   return { type: null, message: newProduct };
 };
