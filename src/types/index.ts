@@ -23,3 +23,9 @@ export type TResult = {
   type?: string,
   message?: string
 };
+
+export type TOrder = {
+  id: number,
+  userId: number,
+  productsIds?: (number | undefined)[]
+};
