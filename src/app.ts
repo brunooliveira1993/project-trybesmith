@@ -9,5 +9,6 @@ app.use(express.json());
 app.get('/products', productController.getAll);
 app.post('/products', productController.insert);
 app.post('/login', userController.login);
+app.post('/users', userController.insertUser);
 
 export default app;

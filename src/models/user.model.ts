@@ -6,7 +6,7 @@ const insertUser = async (user: TUser): Promise<TUser> => {
   const { username, vocation, level, password } = user;
   const [inserted] = await connection.execute<ResultSetHeader>(
     `INSERT INTO 
-  Trybesmith.users (username, vocation, level, password) VALUES (?,?)`,
+  Trybesmith.users (username, vocation, level, password) VALUES (?,?,?,?)`,
     [username, vocation, level, password],
   );
   const { insertId } = inserted;

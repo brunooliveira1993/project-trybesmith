@@ -2,15 +2,16 @@ import jwt from 'jsonwebtoken';
 import userModel from '../models/user.model';
 import { TResult, TUser } from '../types';
 
-// const insert = async (product: TProduct) => {
-//   const newProduct = await productModel.insert(product);
-//   return { type: null, message: newProduct };
-// };
-
 const generateToken = (user: TUser) => {
   const payload = { id: user.id, username: user.username };
   return jwt.sign(payload, process.env.JWT_SECRET as string, { algorithm: 'HS256',
     expiresIn: '1d' });
+};
+
+const insertUser = async (user: TUser) => {
+  await userModel.insertUser(user);
+  const newUser = { username: user.username, password: user.password };
+  return { type: null, message: generateToken(newUser) };
 };
 
 const login = async (loginBody: TUser): Promise<TResult> => {
@@ -31,4 +32,5 @@ const login = async (loginBody: TUser): Promise<TResult> => {
 
 export default {
   login,
+  insertUser,
 };
