@@ -6,6 +6,14 @@ const getAll = async (): Promise<TOrder[]> => {
   return products;
 };
 
+const insert = async (userId: number, productId: number[]) => {
+  const orderId = await orderModel.inser(userId);
+  const promises = productId.map((item) => orderModel.update(orderId, item));
+  await Promise.all(promises);
+  return { type: null, message: { userId, productId } };
+};
+
 export default {
   getAll,
+  insert,
 };
